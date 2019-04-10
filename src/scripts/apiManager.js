@@ -11,7 +11,7 @@ export default {
             .then(response => response.json())
     },
 
-    postAll: (key, objectId) => {
+    post: (key, objectId) => {
 
         return fetch(`${apiURL}/${key}`, {
             method: "POST",
@@ -22,13 +22,13 @@ export default {
         })
     },
 
-    delFetch: (key, itemId) => {
+    delete: (key, itemId) => {
         return fetch(`${apiURL}/${key}/${itemId}`, {
             method: "DELETE",
         })
     },
 
-    patchAll: (key, itemId, objectId) => {
+    patch: (key, itemId, objectId) => {
         return fetch(`${apiURL}/${key}/${itemId}`, {
             method: "PATCH",
             headers: {
