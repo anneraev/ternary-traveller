@@ -18,3 +18,13 @@ Repeated Tasks:
 1a. Refresh DOM.
 
 Start point: Page Manager to populate the DOM with information from current API and form to add new information.
+
+Form Builder Must have:
+	- Specify DOM target
+	- Create event listiner
+	- number of fields
+	- field labels
+	- be passed information to create usable IDs.
+
+	Send information(#of fields, something to generate IDs from, something to generate labels from, target--all might be same thing?) => pass from form builder to HTML builder to build the actual elements => add event listiner => append
+	=================================================================
