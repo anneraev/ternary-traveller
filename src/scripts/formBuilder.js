@@ -8,7 +8,7 @@ export default {
         const form = htmlBuilder.elementBuilder("form", `${title}--${id}`, undefined, undefined)
         //loops through keys and builds a form and label from the passed data.
         for (let i = 0; keysArray.length; i+=1){
-            //container for the label/corm pairs.
+            //container for the label/form pairs.
             const div = htmlBuilder.elementBuilder("div", `div--${keysArray[i]}--${id}`, undefined, undefined)
             //label and form
             const label = htmlBuilder.elementBuilder("label", `label--${keysArray[i]}--${id}`, `${keysArray[i]}`, undefined) //?
