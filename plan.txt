@@ -27,4 +27,8 @@ Form Builder Must have:
 	- be passed information to create usable IDs.
 
 	Send information(#of fields, something to generate IDs from, something to generate labels from, target--all might be same thing?) => pass from form builder to HTML builder to build the actual elements => add event listiner => append
+
+	Form Builder data passed should be based on data structure of what the form will pass back to the API on submit as in, the original data structure in the API.
+
+	(keys, values, typesofInputs, idOfDataset)
 	=================================================================
