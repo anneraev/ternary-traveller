@@ -1,0 +1,20 @@
+{
+    "places": [
+        {
+            "id": 1,
+            "name": "Los Angeles",
+            "visa_required": false
+        },
+        {
+            "id": 2,
+            "name": "San Francisco",
+            "visa_required": false
+        },
+        {
+            "id": 3,
+            "name": "Toronto",
+            "visa_required": false
+        }
+    ],
+    "interests": []
+}
