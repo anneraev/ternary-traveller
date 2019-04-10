@@ -1,0 +1,20 @@
+Add points of interest.
+	- edit cost  and add review.
+Delete point of interest.
+	- Alert to confirm delete.
+
+- Form Create => Button Click => Save Information to API => get information from API => Refresh DOM to repopulate content => build HTML => append containers.
+
+Edit Button Create => Remove Content from Dom => Form Create => Post form in same container => save information to API => Get information from API => refresh DOM to repopulate content => build HTML => append containers.
+
+Delete Button => Alert => Confirm Yes, No => Remove From API => Refresh DOM => build HTML => append containers.
+
+Repeated Tasks:
+5. Form Creation
+4. Click Event Handlers
+1b. Save, Get Edit REMOVE Information(API)
+2. BuildHTML
+3. append containers.
+1a. Refresh DOM.
+
+Start point: Page Manager to populate the DOM with information from current API and form to add new information.
