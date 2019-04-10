@@ -5,7 +5,8 @@ export default {
     buildForm: (title, keysArray, valuesArray, typesArray, id) => {
         //(elementType, elementId, elementTextContent, elementValue)
         //create form.
-        const form = htmlBuilder.elementBuilder("form", `${title}--${id}`, undefined, undefined)
+        const form = htmlBuilder.elementBuilder("fieldset", `${title}--${id}`, undefined, undefined)
+        form.appendChild("legend", `legend--${title}--${id}`, `${title}:`, undefined);
         //loops through keys and builds a form and label from the passed data.
         for (let i = 0; keysArray.length; i+=1){
             //container for the label/form pairs.
