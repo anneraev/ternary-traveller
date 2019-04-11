@@ -19,9 +19,19 @@ export default {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
             } else if (typesAray[i] === "select") {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
+                //build out options for the select input type. The value is alwas an integer representing the Id of the item in the dataset.
+                arrayOptionsArray[i].forEach(option => {
+                    const newOption = htmlBuilder.elementBuilder("option", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option.index}`)
+                    field.appendChild(newOption);
+                })
+                //all other input types.
             } else {
                 field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
                 field.setAtrribute("type", `${typesArray[i]}`);
+                //if type is checkbox or radio button.
+                if (typesArray[i] === "radio" || typesArray[i] === "checkbox"){
+                    //stuff
+                }
             }
             //append to div, append div to form.
             div.appendChild(label);
