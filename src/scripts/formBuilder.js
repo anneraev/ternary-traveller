@@ -26,11 +26,12 @@ export default {
                 })
                 //all other input types.
             } else {
-                field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
-                field.setAtrribute("type", `${typesArray[i]}`);
                 //if type is checkbox or radio button.
-                if (typesArray[i] === "radio" || typesArray[i] === "checkbox"){
-                    //stuff
+                if (typesArray[i] === "radio" || typesArray[i] === "checkbox") {
+
+                } else {
+                    field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
+                    field.setAtrribute("type", `${typesArray[i]}`);
                 }
             }
             //append to div, append div to form.
