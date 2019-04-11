@@ -13,10 +13,12 @@ export default {
             const div = htmlBuilder.elementBuilder("div", `div--${keysArray[i]}--${id}`, undefined, undefined)
             //label and form
             const label = htmlBuilder.elementBuilder("label", `label--${keysArray[i]}--${id}`, `${keysArray[i]}`, undefined) //?
+            div.appendChild(label)
             //specify type
             let field
             if (typesArray[i] === "textarea") {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
+                div.appendChild(field);
             } else if (typesAray[i] === "select") {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
                 //build out options for the select input type. The value is alwas an integer representing the Id of the item in the dataset.
@@ -24,20 +26,22 @@ export default {
                     const newOption = htmlBuilder.elementBuilder("option", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option.index}`)
                     field.appendChild(newOption);
                 })
+                div.appendChild(field);
                 //all other input types.
             } else {
                 //if type is checkbox or radio button.
                 if (typesArray[i] === "radio" || typesArray[i] === "checkbox") {
-
+                    arrayOptionsArray[i].forEach(option => {
+                        field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option}`) //?
+                        newItem.setAtrribute("type", `${typesArray[i]}`);
+                        div.appendChild(field)
+                    })
                 } else {
                     field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
                     field.setAtrribute("type", `${typesArray[i]}`);
+                    div.appendChild(field);
                 }
             }
-            //append to div, append div to form.
-            div.appendChild(label);
-            div.appendChild(field);
-            form.appendChild(div);
         }
         console.log(form);
         return form
