@@ -6,9 +6,10 @@ export default {
         //(elementType, elementId, elementTextContent, elementValue)
         //create form.
         const form = htmlBuilder.elementBuilder("fieldset", `${title}--${id}`, undefined, undefined)
-        form.appendChild("legend", `legend--${title}--${id}`, `${title}:`, undefined);
+        const legend = htmlBuilder.elementBuilder("legend", `legend--${title}--${id}`, `${title}:`, undefined);
+        form.appendChild(legend);
         //loops through keys and builds a form and label from the passed data.
-        for (let i = 0; keysArray.length; i += 1) {
+        for (let i = 0; i < keysArray.length; i += 1) {
             //container for the label/form pairs.
             const div = htmlBuilder.elementBuilder("div", `div--${keysArray[i]}--${id}`, undefined, undefined)
             //label and form
@@ -33,15 +34,18 @@ export default {
                 if (typesArray[i] === "radio" || typesArray[i] === "checkbox") {
                     arrayOptionsArray[i].forEach(option => {
                         let newItem = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option}`) //?
-                        newItem.setAtrribute("type", `${typesArray[i]}`);
+                        newItem.setAttribute("type", `${typesArray[i]}`);
                         div.appendChild(newItem);
                     })
                 } else {
+                    console.log(typesArray[i])
+                    console.log(valuesArray[i])
                     field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
-                    field.setAtrribute("type", `${typesArray[i]}`);
+                    field.setAttribute("type", `${typesArray[i]}`);
                     div.appendChild(field);
                 }
             }
+            form.appendChild(div);
         }
         console.log(form);
         return form
