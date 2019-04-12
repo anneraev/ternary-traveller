@@ -19,7 +19,7 @@ export default {
             if (typesArray[i] === "textarea") {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
                 div.appendChild(field);
-            } else if (typesAray[i] === "select") {
+            } else if (typesArray[i] === "select") {
                 field = htmlBuilder.elementBuilder(`${typesArray[i]}`, `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
                 //build out options for the select input type. The value is alwas an integer representing the Id of the item in the dataset.
                 arrayOptionsArray[i].forEach(option => {
@@ -32,9 +32,9 @@ export default {
                 //if type is checkbox or radio button.
                 if (typesArray[i] === "radio" || typesArray[i] === "checkbox") {
                     arrayOptionsArray[i].forEach(option => {
-                        field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option}`) //?
+                        let newItem = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${option.index}`, `${option}`, `${option}`) //?
                         newItem.setAtrribute("type", `${typesArray[i]}`);
-                        div.appendChild(field)
+                        div.appendChild(newItem);
                     })
                 } else {
                     field = htmlBuilder.elementBuilder("input", `${typesArray[i]}--${keysArray[i]}--${id}`, undefined, `${valuesArray[i]}`) //?
