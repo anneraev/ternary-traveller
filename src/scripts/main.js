@@ -14,16 +14,16 @@ const id = 3
 
 //Other improvements: Optional boolean to disable creating a fieldset, or perhaps another passed attribute to indicate the wrapper element.
 
-
+let wrapperType = "fieldset"
 let keysArray = ["Test1", "Test2", "Dropdown", "Radio", "Checkbox", "Textarea"];
-let valuesArray = ["This is test1", undefined, undefined, undefined,undefined, undefined];
+let valuesArray = ["This is test1", undefined, undefined, "testRadio",undefined, undefined];
 let typesArray = ["text", "date", "select", "radio", "checkbox", "textarea"];
 let dropDownOptions = ["Love", "Hate", "Indifference"]
 let radioOptions = ["True", "False"]
 let checkboxOptions = ["This is a test!", "This is also a test!"]
 let arrayOptionsArray = [undefined, undefined, dropDownOptions, radioOptions, checkboxOptions, undefined]
 
-const form = formBuilder.buildForm(title, keysArray, valuesArray, typesArray, id, arrayOptionsArray)
+const form = formBuilder.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray)
 
 display.appendChild(form);
 
