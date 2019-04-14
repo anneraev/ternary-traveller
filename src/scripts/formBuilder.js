@@ -1,5 +1,16 @@
 import htmlBuilder from "./htmlBuilder";
 
+//ID style guide:
+//Whole Form ("form"--id)
+    //wrapper for each item ("wrapper"--id--type)
+            //label for each item ("label"--id--type--key--optionId(if multiple))
+                //field item ("field"--id--type--key--optionId(if multiple))
+
+//Title - defined title.
+// id - id of data object.
+// type - type of input
+// key - name of item in data.
+
 //create an array of the created elements, iterate through them, dynamically build key/value pairs that refer to the element, store the object. That way, any of the form's elements can be easily referred to.
 
 //Things you'll want a reference to:
@@ -7,6 +18,10 @@ import htmlBuilder from "./htmlBuilder";
 //The form itself.
 //The wrapper for each input/label pair (for adding options, removing labels, fields, ect).
 //a reference to its submit button.
+
+//A reference to the object needs to be made inside the button's event listener. Makes it easy to access.
+
+//Object constructor needs to have in it functions to call the field creation functions, so that adding a new field to an existing form is as easy as calling that form and the field building function that is an attribute of it.
 
 export default {
     //Title of form, Array of original keys, array of original values, array of types of fields, id from dataset.
@@ -25,13 +40,13 @@ export default {
             const key = keysArray[i];
             const optionsArray = arrayOptionsArray[i];
             const value = valuesArray[i];
-            const div = htmlBuilder.elementBuilder("div", `div--${key}--${id}`)
+            const div = htmlBuilder.elementBuilder("div", `wrapper--${id}--${type}`)
             //label and form
             if (type !== "radio" && type !== "checkbox") {
-                const label = this.buildLabel(key, id)
+                const label = this.buildLabel(key, id, type)
                 div.appendChild(label)
             } else {
-                const heading = htmlBuilder.elementBuilder("h5", `label--${key}--${id}`, `${key}`)
+                const heading = htmlBuilder.elementBuilder("h5", `label--${id}--${type}--${key}`, `${key}`)
                 div.appendChild(heading);
             }
             //specify type
@@ -60,8 +75,8 @@ export default {
         console.log(form);
         return form
     },
-    buildLabel: function (key, id) {
-        const label = htmlBuilder.elementBuilder("label", `label--${key}--${id}`, `${key}`, undefined)
+    buildLabel: function (key, id, type) {
+        const label = htmlBuilder.elementBuilder("label", `label--${id}--${type}--${key}`, `${key}`, undefined)
         return label
     },
     buildLegend: function (title, id) {
@@ -69,11 +84,11 @@ export default {
         return legend
     },
     buildTextArea: function (type, key, id) {
-        const textArea = htmlBuilder.elementBuilder(`${type}`, `${type}--${key}--${id}`);
+        const textArea = htmlBuilder.elementBuilder(`${type}`, `field--${id}--${type}--${key}`);
         return textArea;
     },
     buildDropdown: function (type, key, id, value, optionsArray) {
-        const dropdown = htmlBuilder.elementBuilder(`${type}`, `${type}--${key}--${id}`, undefined, `${value}`) //?
+        const dropdown = htmlBuilder.elementBuilder(`${type}`, `field--${id}--${type}--${key}`, undefined, `${value}`) //?
         //build out options for the select input type. The value is alwas an integer representing the Id of the item in the dataset.
         optionsArray.forEach(option => {
             const optionIndex = optionsArray.indexOf(option);
@@ -94,14 +109,14 @@ export default {
             optionValue = option;
             inputType = "input";
         }
-        const newOption = htmlBuilder.elementBuilder(`${inputType}`, `${type}${option}--${id}--${optionIndex}`, `${option}`, `${optionValue}`)
+        const newOption = htmlBuilder.elementBuilder(`${inputType}`, `field--${id}--${type}--${key}--${optionIndex}`, `${option}`, `${optionValue}`)
         if (inputType !== "option") {
-            const label = htmlBuilder.elementBuilder("label", `${type}--${key}--${optionIndex}`, `${option}`);
+            const label = htmlBuilder.elementBuilder("label", `label--${id}--${type}--${key}--${optionIndex}`, `${option}`);
             if (type === "radio") {
                 newOption.setAttribute("name", `${key}`);
             }
             newOption.setAttribute("type", `${type}`);
-            const optionDiv = htmlBuilder.elementBuilder("div", `${type}${option}--${id}--${optionIndex}`)
+            const optionDiv = htmlBuilder.elementBuilder("div", `divOption--${id}--${type}--${key}--${optionIndex}`)
             optionDiv.appendChild(newOption);
             optionDiv.appendChild(label);
             return optionDiv;
@@ -110,7 +125,7 @@ export default {
         }
     },
     buildInput: function (type, key, id, value) {
-        const input = htmlBuilder.elementBuilder("input", `${type}--${key}--${id}`);
+        const input = htmlBuilder.elementBuilder("input", `field--${id}--${type}--${key}`);
         input.setAttribute("type", `${type}`);
         if (type === "text") {
             input.setAttribute("placeholder", `${value}`);
