@@ -23,7 +23,9 @@ let radioOptions = [true, false]
 let checkboxOptions = ["This is a test!", "This is also a test!"]
 let arrayOptionsArray = [undefined, undefined, dropDownOptions, radioOptions, checkboxOptions, undefined]
 
-const form = formBuilder.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray)
+const formArray = formBuilder.buildForm(wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray)
+const form = formArray[0];
+console.log(formArray[1]);
 
 display.appendChild(form);
 

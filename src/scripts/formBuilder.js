@@ -1,10 +1,11 @@
 import htmlBuilder from "./htmlBuilder";
+import formObjectManager from "./formObject";
 
 //ID style guide:
 //Whole Form ("form"--id)
-    //wrapper for each item ("wrapper"--id--type)
-            //label for each item ("label"--id--type--key--optionId(if multiple))
-                //field item ("field"--id--type--key--optionId(if multiple))
+//wrapper for each item ("wrapper"--id--type)
+//label for each item ("label"--id--type--key--optionId(if multiple))
+//field item ("field"--id--type--key--optionId(if multiple))
 
 //Title - defined title.
 // id - id of data object.
@@ -26,11 +27,14 @@ import htmlBuilder from "./htmlBuilder";
 export default {
     //Title of form, Array of original keys, array of original values, array of types of fields, id from dataset.
     buildForm: function (wrapperType, title, keysArray, valuesArray, typesArray, id, arrayOptionsArray) {
+        //will be passed to the object that contains all the values of this form.
+        let inputsArray = [];
         //(elementType, elementId, elementTextContent, elementValue)
         //create form.
         const form = htmlBuilder.elementBuilder(wrapperType, `${title}--${id}`)
         if (wrapperType === "fieldset") {
             const legend = this.buildLegend(title, id);
+            //inputsArray.push(legend);
             form.appendChild(legend);
         }
         //loops through keys and builds a form and label from the passed data.
@@ -52,9 +56,11 @@ export default {
             //specify type
             if (type === "textarea") {
                 let textArea = this.buildTextArea(type, key, id); //?
+                inputsArray.push(textArea);
                 div.appendChild(textArea);
             } else if (type === "select") {
                 const dropDown = this.buildDropdown(type, key, id, value, optionsArray);
+                inputsArray.push(dropDown);
                 div.appendChild(dropDown);
                 //all other input types.
             } else {
@@ -63,24 +69,33 @@ export default {
                     optionsArray.forEach(option => {
                         let optionIndex = optionsArray.indexOf(option);
                         let newItem = this.buildOption(option, optionIndex, type, id, key) //?
+                        inputsArray.push(newItem);
                         div.appendChild(newItem);
                     })
                 } else {
                     const field = this.buildInput(type, key, id, value)
+                    inputsArray.push(field);
                     div.appendChild(field);
                 }
             }
             form.appendChild(div);
         }
+        const submitButton = this.buildButton(id, "Submit");
+        form.appendChild(submitButton);
         console.log(form);
-        return form
+        const newFormObject = formObjectManager.createFormObject(form, inputsArray, submitButton);
+        newFormObject.referenceFormItems();
+        const formArray = []
+        formArray.push(form);
+        formArray.push(newFormObject);
+        return formArray;
     },
     buildLabel: function (key, id, type) {
         const label = htmlBuilder.elementBuilder("label", `label--${id}--${type}--${key}`, `${key}`, undefined)
         return label
     },
     buildLegend: function (title, id) {
-        const legend = htmlBuilder.elementBuilder("legend", `legend--${title}--${id}`, `${title}:`);
+        const legend = htmlBuilder.elementBuilder("legend", `legend--${title}--${id}--legend`, `${title}:`);
         return legend
     },
     buildTextArea: function (type, key, id) {
@@ -99,7 +114,6 @@ export default {
         return dropdown;
     },
     buildOption: function (option, optionIndex, type, id, key) {
-        console.log("type", type);
         let optionValue
         let inputType
         if (type === "select" || type === "dropdown" || type === "option") {
@@ -117,8 +131,8 @@ export default {
             }
             newOption.setAttribute("type", `${type}`);
             const optionDiv = htmlBuilder.elementBuilder("div", `divOption--${id}--${type}--${key}--${optionIndex}`)
-            optionDiv.appendChild(newOption);
             optionDiv.appendChild(label);
+            optionDiv.appendChild(newOption);
             return optionDiv;
         } else {
             return newOption;
@@ -131,5 +145,9 @@ export default {
             input.setAttribute("placeholder", `${value}`);
         }
         return input;
+    },
+    buildButton: function (id, name) {
+        const button = htmlBuilder.elementBuilder("button", `button--${id}--${name}`, name);
+        return button;
     }
 }
