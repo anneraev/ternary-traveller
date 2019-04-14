@@ -19,7 +19,7 @@ let keysArray = ["Test1", "Test2", "Dropdown", "Radio", "Checkbox", "Textarea"];
 let valuesArray = ["This is test1", undefined, undefined, "testRadio",undefined, undefined];
 let typesArray = ["text", "date", "select", "radio", "checkbox", "textarea"];
 let dropDownOptions = ["Love", "Hate", "Indifference"]
-let radioOptions = ["True", "False"]
+let radioOptions = [true, false]
 let checkboxOptions = ["This is a test!", "This is also a test!"]
 let arrayOptionsArray = [undefined, undefined, dropDownOptions, radioOptions, checkboxOptions, undefined]
 
